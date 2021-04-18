@@ -35,6 +35,7 @@ export default class PathfindingVisualizer extends Component {
   }
 
   handleMouseUp() {
+      console.log('mup');
     this.setState({mouseIsPressed: false});
   }
 
@@ -96,9 +97,7 @@ export default class PathfindingVisualizer extends Component {
                       isWall={isWall}
                       mouseIsPressed={mouseIsPressed}
                       onMouseDown={(row, col) => this.handleMouseDown(row, col)}
-                      onMouseEnter={(row, col) =>
-                        this.handleMouseEnter(row, col)
-                      }
+                      onMouseEnter={(row, col) =>  this.handleMouseEnter(row, col)}
                       onMouseUp={() => this.handleMouseUp()}
                       row={row}></Node>
                   );
@@ -138,8 +137,9 @@ const createNode = (col, row) => {
 };
 
 const getNewGridWithWallToggled = (grid, row, col) => {
-  const newGrid = grid.slice();
+  const newGrid = grid.slice(); 
   const node = newGrid[row][col];
+  console.log(node);
   const newNode = {
     ...node,
     isWall: !node.isWall,
