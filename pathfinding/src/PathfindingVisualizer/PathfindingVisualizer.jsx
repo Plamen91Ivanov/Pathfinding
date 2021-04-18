@@ -35,11 +35,11 @@ export default class PathfindingVisualizer extends Component {
   }
 
   handleMouseUp() {
-      console.log('mup');
     this.setState({mouseIsPressed: false});
   }
 
   animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+      console.log(visitedNodesInOrder);
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
