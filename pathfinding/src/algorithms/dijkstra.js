@@ -35,28 +35,22 @@ function updateUnvisitedNeighbors(node, grid) {
 
 function getUnvisitedNeighbors(node, grid) {
   const neighbors = [];
-  console.log('node ', node);
   const {col, row} = node;
   if (row > 0) {
-       console.log('first if');
        neighbors.push(grid[row - 1][col]);
   }
   
   if (row < grid.length - 1){
-    console.log('sec if');
      neighbors.push(grid[row + 1][col]);
   } 
   
   if (col > 0){
-    console.log('third if');
      neighbors.push(grid[row][col - 1]);
   }
   
   if (col < grid[0].length - 1){
-    console.log('four if');
      neighbors.push(grid[row][col + 1]);
   }
-  
   return neighbors.filter(neighbor => !neighbor.isVisited);
 }
 
