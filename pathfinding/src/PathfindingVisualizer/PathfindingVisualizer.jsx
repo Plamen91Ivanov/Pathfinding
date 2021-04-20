@@ -76,6 +76,7 @@ export default class PathfindingVisualizer extends Component {
   }
 
   visualizeDijkstra() {
+    //this.clearBoard();
     const {grid} = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
@@ -85,6 +86,7 @@ export default class PathfindingVisualizer extends Component {
   }
 
   visualizeDFS() {
+      //this.clearBoard();
       const {grid} = this.state;
       const startNode = grid[START_NODE_ROW][START_NODE_COL];
       const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
@@ -93,6 +95,9 @@ export default class PathfindingVisualizer extends Component {
     }
 
   clearBoard(){
+    const newGrid = getNewGrid(this.state.grid);
+    console.log(newGrid);
+    this.setState({grid: newGrid});
     const {grid} = this.state;
     for (let i = 0; i < 10; i++) {
         for (let x = 0; x < 15; x++) {
@@ -107,10 +112,8 @@ export default class PathfindingVisualizer extends Component {
                 const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
                 finishNode.isFinish = true;
             }
-            
         }
     }
-
   }
 
   render() {
@@ -184,7 +187,6 @@ const createNode = (col, row) => {
 const getNewGridWithWallToggled = (grid, row, col) => {
   const newGrid = grid.slice(); 
   const node = newGrid[row][col];
-  console.log(node);
   const newNode = {
     ...node,
     isWall: !node.isWall,
@@ -192,3 +194,23 @@ const getNewGridWithWallToggled = (grid, row, col) => {
   newGrid[row][col] = newNode;
   return newGrid;
 };
+
+const getNewGrid = (grid) => {
+    const newGrid = grid.slice(); 
+    for (let row = 0; row < 10; row++) {
+        for (let col = 0; col < 15; col++) {
+            const newNode = {
+                col,
+                row,  
+                isStart: row === START_NODE_ROW && col === START_NODE_COL,
+                isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
+                distance: Infinity,
+                isVisited: false,
+                isWall: false,
+                previousNode: null,
+              };
+              newGrid[row][col] = newNode;
+        }        
+    }
+    return newGrid;
+}

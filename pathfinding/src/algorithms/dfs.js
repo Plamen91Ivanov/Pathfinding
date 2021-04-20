@@ -3,11 +3,22 @@ export function dfs(grid, startNode, finishNode){
     const unvisiteNodes = getAllNodes(grid);
     while(!!unvisiteNodes.length){
         const nextNode = startNode
-        visitedNodes.push(nextNode);
-        if (nextNode === finishNode) return visitedNodes;
-        const adjNodes = getNextNode(nextNode, grid);
         startNode.isVisited = true;
+        visitedNodes.push(nextNode);
+        const adjNodes = getNextNode(nextNode, grid);
+        if (!!adjNodes.length) {
+            if (nextNode === finishNode) return visitedNodes;
         startNode = adjNodes.pop();
+        if (startNode.isWall){
+            startNode = adjNodes.pop();
+                if (startNode.isWall) {
+                    startNode = adjNodes.pop()
+                        if (startNode.isWall) {
+                            startNode = adjNodes.pop();
+                        }
+                }
+        };
+        } 
         unvisiteNodes.shift();
     }    
 }
@@ -35,8 +46,8 @@ function getNextNode(node, grid) {
     //         nextNode = grid[row][col - 1];
     //     } 
     // }
-    
-    return nextNodes.filter(nextNode => !nextNode.isVisited);
+    var test = nextNodes.filter(nextNode => !nextNode.isVisited);
+    return test.filter(nextNode => !nextNode.isWall);
 }
 
 function getAllNodes(grid){
