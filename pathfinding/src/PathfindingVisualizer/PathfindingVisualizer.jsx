@@ -40,8 +40,13 @@ export default class PathfindingVisualizer extends Component {
   }
 
   animateDFS(visitedNodes){
-    //array with visisted nodes
-    console.log('aniteDFS');
+    for (let i = 0; i <= visitedNodes.length - 1; i++) {
+        setTimeout(() => {
+          const node = visitedNodes[i];
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            'node node-visited';
+        }, 100 * i);
+      }
   }
 
   animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
@@ -85,8 +90,28 @@ export default class PathfindingVisualizer extends Component {
       const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
       const visitedNodes = dfs(grid,startNode,finishNode);
       this.animateDFS(visitedNodes);
-      console.log('here');
     }
+
+  clearBoard(){
+    const {grid} = this.state;
+    for (let i = 0; i < 10; i++) {
+        for (let x = 0; x < 15; x++) {
+            document.getElementById(`node-${i}-${x}`).className = 'node';
+            if (START_NODE_COL === x && START_NODE_ROW === i) {
+                const startNode = grid[START_NODE_ROW][START_NODE_COL];
+                document.getElementById(`node-${i}-${x}`).className = 'node node-start';
+                startNode.isStart = true;
+            }
+            if (FINISH_NODE_COL === x && FINISH_NODE_ROW === i) {
+                document.getElementById(`node-${i}-${x}`).className = 'node node-finish';
+                const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+                finishNode.isFinish = true;
+            }
+            
+        }
+    }
+
+  }
 
   render() {
     const {grid, mouseIsPressed} = this.state;
@@ -98,6 +123,9 @@ export default class PathfindingVisualizer extends Component {
         </button>
         <button onClick={() => this.visualizeDFS()}>
           Visualize DSF's Algorithm
+        </button>
+        <button onClick={() => this.clearBoard()}>
+         Clear Board
         </button>
         <div className="grid">
           {grid.map((row, rowIdx) => {
