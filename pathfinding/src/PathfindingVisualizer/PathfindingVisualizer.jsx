@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Node from './Node/Node';
 import {dijkstra, getNodesInShortestPathOrder} from '../algorithms/dijkstra';
-import dfs from '../algorithms/dfs'
+import {dfs} from '../algorithms/dfs'
 
 import './PathfindingVisualizer.css';
 
@@ -41,6 +41,7 @@ export default class PathfindingVisualizer extends Component {
 
   animateDFS(visitedNodes){
     //array with visisted nodes
+    console.log('aniteDFS');
   }
 
   animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
@@ -86,7 +87,6 @@ export default class PathfindingVisualizer extends Component {
       this.animateDFS(visitedNodes);
       console.log('here');
     }
-
 
   render() {
     const {grid, mouseIsPressed} = this.state;
