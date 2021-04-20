@@ -7,8 +7,8 @@ import './PathfindingVisualizer.css';
 
 const START_NODE_ROW = 5;
 const START_NODE_COL = 5;
-const FINISH_NODE_ROW = 5;
-const FINISH_NODE_COL = 10;
+const FINISH_NODE_ROW = 1;
+const FINISH_NODE_COL = 12;
 
 export default class PathfindingVisualizer extends Component {
   constructor() {
@@ -54,14 +54,14 @@ export default class PathfindingVisualizer extends Component {
       if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
           this.animateShortestPath(nodesInShortestPathOrder);
-        }, 10 * i);
+        }, 100 * i);
         return;
       }
       setTimeout(() => {
         const node = visitedNodesInOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           'node node-visited';
-      }, 10 * i);
+      }, 100 * i);
     }
   }
 

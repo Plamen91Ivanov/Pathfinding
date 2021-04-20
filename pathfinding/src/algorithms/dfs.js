@@ -1,13 +1,14 @@
 export function dfs(grid, startNode, finishNode){
     const visitedNodes = [];
     const unvisiteNodes = getAllNodes(grid);
+    var unvisitedNeighbors = [];
     while(!!unvisiteNodes.length){
         const nextNode = startNode
         startNode.isVisited = true;
         visitedNodes.push(nextNode);
-        const adjNodes = getNextNode(nextNode, grid);
-        if (!!adjNodes.length) {
-            if (nextNode === finishNode) return visitedNodes;
+        //const adjNodes = getNextNode(nextNode, grid);
+        const adjNodes = getUnvisitedNeighbors(nextNode, grid,unvisitedNeighbors);
+        if (nextNode === finishNode) return visitedNodes;
         startNode = adjNodes.pop();
         if (startNode.isWall){
             startNode = adjNodes.pop();
@@ -18,10 +19,20 @@ export function dfs(grid, startNode, finishNode){
                         }
                 }
         };
-        } 
         unvisiteNodes.shift();
     }    
 }
+
+function getUnvisitedNeighbors(node, grid,unvisitedNeighbors){
+    const {col, row} = node;  
+    if (col > 0) unvisitedNeighbors.push(grid[row][col - 1]);
+    if (row < grid.length - 1) unvisitedNeighbors.push(grid[row + 1][col]);
+    if (col < grid[0].length - 1) unvisitedNeighbors.push(grid[row][col + 1]);
+    if (row > 0) unvisitedNeighbors.push(grid[row - 1][col]);
+  
+    return unvisitedNeighbors.filter(neighbor => !neighbor.isVisited);
+}
+
 
 function getNextNode(node, grid) {
     let nextNodes = [];
