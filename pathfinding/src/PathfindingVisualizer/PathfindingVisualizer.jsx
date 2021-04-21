@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Node from './Node/Node';
 import {dijkstra, getNodesInShortestPathOrder} from '../algorithms/dijkstra';
 import {dfs} from '../algorithms/dfs'
+import {AStar} from '../algorithms/AStar'
 
 import './PathfindingVisualizer.css';
 
@@ -92,6 +93,15 @@ export default class PathfindingVisualizer extends Component {
       this.animateDFS(visitedNodes);
     }
 
+    visualizeAStar() {
+        const {grid} = this.state;
+        const startNode = grid[START_NODE_ROW][START_NODE_COL];
+        const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+        const visitedNodes = AStar(grid,startNode,finishNode);
+        console.log(visitedNodes);
+        console.log('ho');
+      }
+
   clearBoard(){
     const newGrid = getNewGrid(this.state.grid);
     console.log(newGrid);
@@ -124,6 +134,9 @@ export default class PathfindingVisualizer extends Component {
         </button>
         <button onClick={() => this.visualizeDFS()}>
           Visualize DSF's Algorithm
+        </button>
+        <button onClick={() => this.AStar()}>
+          Visualize AStar Algorithm
         </button>
         <button onClick={() => this.clearBoard()}>
          Clear Board
