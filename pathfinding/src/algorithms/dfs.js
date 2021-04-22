@@ -20,7 +20,7 @@ export function dfs(grid, startNode, finishNode){
                 }
         };
         unvisiteNodes.shift();
-    }    
+    }
 }
 
 function getUnvisitedNeighbors(node, grid,unvisitedNeighbors){
@@ -32,7 +32,6 @@ function getUnvisitedNeighbors(node, grid,unvisitedNeighbors){
   
     return unvisitedNeighbors.filter(neighbor => !neighbor.isVisited);
 }
-
 
 function getNextNode(node, grid) {
     let nextNodes = [];
