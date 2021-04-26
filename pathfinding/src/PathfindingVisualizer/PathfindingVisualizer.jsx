@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Node from './Node/Node';
 import {dijkstra, getNodesInShortestPathOrder} from '../algorithms/dijkstra';
 import {dfs} from '../algorithms/dfs'
-import {AStar} from '../algorithms/AStar'
+import {AStar} from '../algorithms/aStar'
 
 import './PathfindingVisualizer.css';
 
@@ -10,6 +10,7 @@ const START_NODE_ROW = 5;
 const START_NODE_COL = 5;
 const FINISH_NODE_ROW = 1;
 const FINISH_NODE_COL = 12;
+
 
 export default class PathfindingVisualizer extends Component {
   constructor() {
@@ -19,7 +20,7 @@ export default class PathfindingVisualizer extends Component {
       mouseIsPressed: false,
     };
   }
-
+  
   componentDidMount() {
     const grid = getInitialGrid();
     this.setState({grid});
